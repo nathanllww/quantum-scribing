@@ -1,13 +1,13 @@
 \documentclass{article}
 
-\usepackage{amsmath, amssymb, amsthm}
+\usepackage{amsmath, amssymb, amsthm, braket}
 \usepackage[margin=1in]{geometry}
 %\usepackage[parfill]{parskip}
 
-\usepackage{titlesec}
-\titleformat{\section}{
-\vspace{-4pt}\large\bf
-}{}{0em}{}[\vspace{-5pt}]
+% \usepackage{titlesec}
+% \titleformat{\section}{
+% \vspace{-4pt}\large\bf
+% }{}{0em}{}[\vspace{-5pt}]
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
@@ -17,11 +17,27 @@
 \newtheorem{example}[theorem]{Example}
 \newtheorem{claim}[theorem]{Claim}
 
-\title{Scribing Notes}
-\author{Nathan White}
+\title{Lecture 6 Scribing Notes}
+\author{Dishen Wang, Nathan White, and Han Cao \\ CS 496: Foundation of Quantum Computing}
 \date{\today}
 
 \begin{document}
 \maketitle
-
+\section{Partial Measurements}
+This lecture begins with a recap and expansion of the concept of \textit{partial measurements}.
+Consider some state over two qubits; any such state can be written as
+\[\alpha_{00}\ket{00} + \alpha_{01}\ket{01} + \alpha_{10}\ket{10} + \alpha_{11}\ket{11}\]
+where $|\alpha_{00}|^2+|\alpha_{01}|^2+|\alpha_{10}|^2+|\alpha_{11}|^2=1$.
+Suppose Alice measures her (the first) qubit.
+Then,
+\begin{itemize}
+    \item Her qubit collapses to 0, which has probability $p_0 = |\alpha_{00}|^2+|\alpha_{01}|^2$.
+        In this case, the state becomes $(1/\sqrt{p_0})(\alpha_{00}\ket{00}+\alpha_{01}\ket{01}) = (1/\sqrt{p_0})\ket{0}\otimes (\alpha_{00}\ket{0}+\alpha_{01}\ket{1})$.
+        This is no longer entangled, since Alice's qubit has been measured, but the probabilities remain the same as in the complete measurement.
+        Bob's probability of seeing 0 after Alice sees 0 is $|\alpha_{00}|^2/p_0$, and since Alice see 0 with probability $p_0$, they both see 0 with probability $|\alpha_{00}|^2$, as expected.
+    \item Her qubit collapses to 1, which has probability $p_1 = 1-p_0$.
+        By symmetry, the analogous situation to collapsing to 0 occurs.
+\end{itemize}
+From this exercise, we see that Alice measuring and Bob later measuring is the same as measuring the entire state.
+Moreover, the exact same argument follows with Bob measuring first; thus order of measuring does not matter.
 \end{document}
