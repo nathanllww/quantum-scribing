@@ -1,27 +1,64 @@
-\documentclass{article}
+\documentclass[11pt]{article}
 
-\usepackage{amsmath, amssymb, amsthm}
-\usepackage[margin=1in]{geometry}
-%\usepackage[parfill]{parskip}
 
-\usepackage{titlesec}
-\titleformat{\section}{
-\vspace{-4pt}\large\bf
-}{}{0em}{}[\vspace{-5pt}]
-
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{definition}[theorem]{Definition}
-\newtheorem{example}[theorem]{Example}
-\newtheorem{claim}[theorem]{Claim}
-
-\title{Scribing Notes}
-\author{Nathan White}
-\date{\today}
-
+\input{macros}
 \begin{document}
-\maketitle
+%%% Fill in the lecture number, date and the scribe name here
+%% \lecturenote{<Lecture Number>}{<Date/Lecture title>}{<Scribe Name>}
+
+\lecturenote{06}{CHSH Game and Bell's Inequalities}{Dishen Wang}
+%\title{Sample: LP-based Decoding of Expander Codes}
+%\maketitle
+
+\section *{CHSH Game Introduction} 
+CHSH game (named after the CHSH inequality discovered by John Clauser, Michael Horne, Abner Shimony, and Richard Holt) is an experiment involving two cooperating players and a referee. The analysis of the game shows that no classical strategy can have a higher 75\% success rate and that the quantum strategy can have a greater success rate than the classical strategy. 
+\section {Definition}
+The game is defined by the following rules:
+\begin{enumerate}
+    \item Two cooperating players, Alice and Bob and a referee, Charlie, are introduced to the game.
+    \item First, Charlie chooses bits $ a, b \in \{0,1\}$ uniformly at random.
+    \item Next, Charlie sends bit x to Alice and bit y to Bob.
+    \item Alice and Bob then respond to Charlie with each of their own bit, $a,b\in \{0,1\}$, respectively as well.
+    \item Once receiving a and b, Charlie tests that if a,b,x, and y satifies the following eqality:
+    \begin{equation}
+        a \oplus b = x \land y
+    \end{equation}
+    
+    if true, then Alice and Bob wins, if false, then Alice and Bob loses.
+    
+\end{enumerate}
+
+\section {Classical Strategies}
+Initially, we will try several classical strategies to determine the success rate of each approach.
+
+\subsection{Strategy \#1}
+Alice and Bob communicate their answers, and agree on the message back
+
+\begin{itemize}
+    \item Since Alice and Bob are cooperative players, both parties will always produce an output that satisfies the success criteria, which means the success rate of this strategy will always be 100\%.
+    \item This approach is too easy, however, and so the communication between Alice and Bob will now be banned.
+\end{itemize}
+
+\subsection{Strategy \#2}
+Deterministic – Alice and Bob both send bit 0 every time 
+
+\begin{itemize}
+    \item if $a$ and $b$ are both bit 0, then $x\land y$ must equal to 0 to satisfy the equality.
+    \item the probability of $x\land y = 0$ is 75\% since 3 out of the 4 uniformly random outcomes $([0,0],[0,1],[1,0])$ outputs result bit 0.
+\end{itemize}
+
+\begin{theorem}
+Any deterministic strategy has a success rate of at most 75\%
+\end{theorem}
+For each deterministic strategy, there are always 4 total outcomes of $x$ and $y$ pair that matches the output of the strategy. Out of the four outcomes, there is always at least one pair of $x$ and $y$ which result of $x \land y$ diffs from the rest, this means that there can never be 100\% probability of winning or losing the game regardless of the deterministic output from Alice and Bob and that the success rate for deterministic strategy is at most 75\%. 
+
+\subsection{Strategy \#3}
+Randomize - Alice and Bob randomly chooses $a$ and $b$ with uniform random probability.
+
+\begin{theorem}
+Any randomized strategy has a success rate of at most 75\%
+\end{theorem}
+
+Randomized strategies can be thought as the same as performing a probability distribution over deterministic strategies. This means that the success rate is the max weighted sum over the success rate of the deterministic strategies. But since deterministic strategies can have a success rate of at most 75\%, the randomized strategies success rate can also only have a max rate of 75\% as well. 
 
 \end{document}

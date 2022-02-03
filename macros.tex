@@ -1,0 +1,328 @@
+%%%%%%%%%%%%% Packages
+\usepackage{xspace,xcolor,enumerate}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{color,graphicx}
+\usepackage{dsfont}
+
+
+%%%%%%%%%%%%%%% Lengths
+\setlength{\topmargin}{-0.5 in} \setlength{\oddsidemargin}{0 in}
+\setlength{\evensidemargin}{0 in} \setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in} \setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in} \setlength{\parskip}{0.05 in}
+
+
+%%%%%%%%%%%%%%%%%% Theorem Environments
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem{openprob}[theorem]{Open Problem}
+\newtheorem{remk}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{apdxlemma}{Lemma}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newcommand{\question}[1]{{\sf [#1]\marginpar{?}} }
+
+
+
+%%%%%%%%%%%%% Additional Macros for Citations %%%%%%%%%%%%%%%%
+% Convention for citations is authors' initials followed by the year.
+% For example, to cite a paper by Leighton and Maggs you would type
+% \cite{LM89}, and to cite a paper by Strassen you would type \cite{S69}.
+% (To avoid bibliography problems, for now we redefine the \cite command.)
+% Also commands that create a suitable format for the reference list.
+% \renewcommand{\cite}[1]{[#1]}
+% \def\beginrefs{\begin{list}%
+%         {[\arabic{equation}]}{\usecounter{equation}
+%          \setlength{\leftmargin}{2.0truecm}\setlength{\labelsep}{0.4truecm}%
+%          \setlength{\labelwidth}{1.6truecm}}}
+% \def\endrefs{\end{list}}
+% \def\bibentry#1{\item[\hbox{[#1]}]}
+
+
+%%%%%%%%%%%%%%%%% Proof Environments
+\def\FullBox{\hbox{\vrule width 6pt height 6pt depth 0pt}}
+
+\def\qed{\ifmmode\qquad\FullBox\else{\unskip\nobreak\hfil
+\penalty50\hskip1em\null\nobreak\hfil\FullBox
+\parfillskip=0pt\finalhyphendemerits=0\endgraf}\fi}
+
+\def\qedsketch{\ifmmode\Box\else{\unskip\nobreak\hfil
+\penalty50\hskip1em\null\nobreak\hfil$\Box$
+\parfillskip=0pt\finalhyphendemerits=0\endgraf}\fi}
+
+\newenvironment{proof}{\begin{trivlist} \item {\bf Proof:~~}}
+   {\qed\end{trivlist}}
+
+\newenvironment{proofsketch}{\begin{trivlist} \item {\bf
+Proof Sketch:~~}}
+  {\qedsketch\end{trivlist}}
+
+\newenvironment{proofof}[1]{\begin{trivlist} \item {\bf Proof
+#1:~~}}
+  {\qed\end{trivlist}}
+
+\newenvironment{claimproof}{\begin{quotation} \noindent
+{\bf Proof of claim:~~}}{\qedsketch\end{quotation}}
+
+%%%%%%%%%% Symbols and Fonts
+\def\from{:}
+\def\to{\rightarrow}
+\def\eps{\varepsilon}
+\def\epsilon{\varepsilon}
+\def\e{\epsilon}
+\def\eps{\epsilon}
+\def\d{\delta}
+\def\phi{\varphi}
+\def\cal{\mathcal}
+\def\xor{\oplus}
+\def\ra{\rightarrow}
+\def\implies{\Rightarrow}
+\def\psdgeq{\succeq} 
+\renewcommand{\bar}{\overline} 
+\newcommand{\ol}{\overline}
+
+\def\bull{\vrule height .9ex width .8ex depth -.1ex }
+
+%%%%%%%%%%%%%%%%%%%%%% Text Macros
+\newcommand{\ie}{i.e.,\xspace}
+\newcommand{\eg}{e.g.,\xspace}
+\newcommand{\etal}{et al.\xspace}
+\newcommand{\cf}{{\it cf.,}}
+
+%%%%%%%%%%%%%%%%%%%%% Punctuation at the end of a displayed formula
+\newcommand{\mper}{\,.}
+\newcommand{\mcom}{\,,}
+
+%%%%%%%%%%%%%%%%%%%%%% Number Sets
+\newcommand{\R}{{\mathbb R}}
+\newcommand{\E}{{\mathbb E}}
+\newcommand{\C}{{\mathbb C}}
+\newcommand{\Q}{{\mathbb Q}}
+\newcommand{\N}{{\mathbb{N}}}
+\newcommand{\Z}{{\mathbb Z}}
+\newcommand{\F}{{\mathbb F}}
+\newcommand{\zo}{\{0,1\}}
+\newcommand{\GF}{\mathrm{GF}}
+\newcommand{\FF}{{\mathbb F}}
+\newcommand{\Real}{{\mathbb R}}
+
+\newcommand{\B}{\{0,1\}\xspace}
+\newcommand{\pmone}{\{-1,1\}\xspace}
+
+\newcommand{\indicator}[1]{\mathds{1}_{\{#1\}}}
+
+%%%%%%%%%%%%%%%%%%%%% Random Variables and Probability
+\newcommand{\Esymb}{\mathbb{E}}
+\newcommand{\Psymb}{\mathbb{P}}
+\newcommand{\Vsymb}{\mathsf{Var}}
+
+\DeclareMathOperator*{\ExpOp}{\Esymb}
+\DeclareMathOperator*{\VarOp}{\Vsymb}
+\DeclareMathOperator*{\ProbOp}{\Psymb}
+\renewcommand{\Pr}{\ProbOp}
+
+\newcommand{\prob}[1]{\Pr\left[{#1}\right]}
+\newcommand{\Prob}[2]{\Pr_{{#1}}\left[{#2}\right]}
+\newcommand{\ex}[1]{\ExpOp\left[{#1}\right]}
+\newcommand{\Ex}[2]{\ExpOp_{{#1}}\left[{#2}\right]}
+\newcommand{\var}[1]{\VarOp\left[{#1}\right]}
+\newcommand{\Var}[2]{\VarOp_{{#1}}\left[{#2}\right]}
+
+
+\newcommand{\conv}[1]{\mathrm{conv}\inparen{#1}}
+\newcommand{\given}{\;\middle\vert\;}
+
+
+%%%%%%%%%% Standard Normal Distribution
+\newcommand{\gauss}[2]{{\cal N(#1, #2)}}
+
+%%%%%%%%%%%% Fractions
+% commands for fractions 
+\usepackage{nicefrac}
+% poor man's fraction
+\newcommand{\flatfrac}[2]{#1/#2}
+\newcommand{\varflatfrac}[2]{#1\textfractionsolidus#2}
+
+\let\nfrac=\nicefrac
+\let\ffrac=\flatfrac
+% similar commands: tfrac,dfrac
+
+\newcommand{\half}{\nicefrac12}
+\newcommand{\onequarter}{\nicefrac14}
+\newcommand{\threequarter}{\nicefrac34}
+
+%%%%%%%%%%%%%%%%%% Vectors and Reals
+\newcommand{\abs}[1]{\ensuremath{\left\lvert #1 \right\rvert}}
+\newcommand{\smallabs}[1]{\ensuremath{\lvert #1 \rvert}}
+%
+\newcommand{\norm}[1]{\ensuremath{\left\lVert #1 \right\rVert}}
+\newcommand{\smallnorm}[1]{\ensuremath{\lVert #1 \rVert}}
+%
+\newcommand{\mydot}[2]{\ensuremath{\left\langle #1, #2 \right\rangle}}
+\newcommand{\mysmalldot}[2]{\ensuremath{\langle #1, #2 \rangle}}
+\newcommand{\ip}[1]{\left\langle #1 \right\rangle}
+
+%%%%%%%%%%% Vectors
+\def\bfx {{\bf x}}
+\def\bfy {{\bf y}}
+\def\bfz {{\bf z}}
+\def\bfu{{\bf u}}
+\def\bfv{{\bf v}}
+\def\bfw{{\bf w}}
+\def\bfa{{\bf a}}
+\def\bfb{{\bf b}}
+\def\bfc{{\bf c}}
+\def\bfg{{\bf g}}
+
+\newcommand{\zero}{\mathbf 0}
+\newcommand{\one}{{\mathbf{1}}}
+\newcommand{\zeroone}{{0/1}\xspace}
+\newcommand{\minusoneone}{{-1/1}\xspace}
+
+\newcommand{\yes}{{\sf Yes}\xspace}
+\newcommand{\no}{{\sf No}\xspace}
+
+
+%%%%%%%%%%%%%%%%%%%%%% General Useful Macros
+\newfont{\inhead}{eufm10 scaled\magstep1}
+\newcommand{\deffont}{\sf}
+
+\newcommand{\calA}{\mathcal{A}}
+\newcommand{\calB}{\mathcal{C}}
+\newcommand{\calC}{\mathcal{C}}
+\newcommand{\calG}{\mathcal{G}}
+\newcommand{\calL}{\mathcal{L}}
+\newcommand{\calU}{\mathcal{U}}
+\newcommand{\calP}{\mathcal{P}}
+\newcommand{\poly}{{\mathrm{poly}}}
+\newcommand{\polylog}{{\mathrm{polylog}}}
+\newcommand{\loglog}{{\mathop{\mathrm{loglog}}}}
+\newcommand{\suchthat}{{\;\; : \;\;}}
+\newcommand{\getsr}{\mathbin{\stackrel{\mbox{\tiny R}}{\gets}}}
+
+
+%%%%%%%%%% Operators
+\DeclareMathOperator\supp{Supp}
+\newcommand{\argmax}{\mathrm{argmax}}
+
+%%%%%%%%%%%%%%%%%%% Complexity Classes
+\newcommand{\classfont}[1]{\textsf{#1}}
+\newcommand{\coclass}[1]{\mathbf{co\mbox{-}#1}} 
+\newcommand{\BPP}{\classfont{BPP}\xspace}
+\newcommand{\classP}{\classfont{P}\xspace}
+\newcommand{\NP}{\classfont{NP}\xspace}
+\newcommand{\coNP}{\classfont{coNP}\xspace}
+\newcommand{\nphard}{\classfont{NP}-hard\xspace}
+
+%%%%%%%%%%%%%%%%%%%% Problems
+% use texorpdfstring to avoid problems with hyperref (can use problem
+% macros also in headings
+\newcommand{\problemmacro}[1]{\textsf{#1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%% Enclosures
+\newcommand{\inparen}[1]{\left(#1\right)}             %\inparen{x+y}  is (x+y)
+\newcommand{\inbraces}[1]{\left\{#1\right\}}           %\inbrace{x+y}  is {x+y}
+\newcommand{\insquare}[1]{\left[#1\right]}             %\insquare{x+y}  is [x+y]
+\newcommand{\inangle}[1]{\left\langle#1\right\rangle} %\inangle{A}    is <A>
+
+
+%%%%%%%%%%%%%%%%%%%% Names
+\newcommand{\Erdos}{Erd\H{o}s\xspace}
+\newcommand{\Renyi}{R\'enyi\xspace}
+\newcommand{\Lovasz}{Lov\'asz\xspace}
+\newcommand{\Juhasz}{Juh\'asz\xspace}
+\newcommand{\Bollobas}{Bollob\'as\xspace}
+\newcommand{\Furedi}{F\"uredi\xspace}
+\newcommand{\Komlos}{Koml\'os\xspace}
+\newcommand{\Luczak}{\L uczak\xspace}
+\newcommand{\Kucera}{Ku\v{c}era\xspace}
+\newcommand{\Szemeredi}{Szemer\'edi\xspace}
+\newcommand{\Chvatal}{Chv\'atal}
+\newcommand{\Holder}{H\"{o}lder}
+\newcommand{\Plunnecke}{Pl\"unnecke}
+
+%%%%%%%%    
+\newcommand{\coursenum}{CS 396/496}
+\newcommand{\coursename}{Foundations of Quantum Computing and Quantum Information}
+%\newcommand{\courseprof}{Aravindan Vijayaraghavan}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newlength{\tpush}
+\setlength{\tpush}{2\headheight}
+\addtolength{\tpush}{\headsep}
+
+
+\newcommand{\lecturenote}[3]
+{
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf \coursename
+                        \hfill Winter 2022} }
+       \vspace{4mm}
+       \hbox to 6.28in { {\Large \hfill Lecture #1: #2  \hfill} }
+       \vspace{2mm}
+      \hbox to 6.28in { {Lecturer: Aravindan Vijayaraghavan \hfill {Scribe: #3}}}
+      \vspace{2mm}}
+   }
+   \end{center}
+   \vspace*{4mm}
+}
+
+
+\newcommand{\homework}[2]
+{
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf \coursename
+                        \hfill Winter 2022} }
+       \vspace{4mm}
+       \hbox to 6.28in { {\Large \hfill Homework #1  \hfill} }
+       \vspace{2mm}
+       \hbox to 6.28in { {{Due: #2} \hfill ~} }
+      \vspace{2mm}}
+   }
+   \end{center}
+   {\bf Note}: {\it You may discuss these problems in groups. However, you
+     must mention the names of the people in your group. Also,
+     please do mention any books, papers or other sources you refer to. It is recommended that you
+     typeset your solutions in \LaTeX.}
+   \vspace*{4mm}
+}
+
+\newcommand{\handout}[3]
+{
+\noindent\vspace*{-\tpush}\newline
+\parbox{\textwidth}
+{
+{
+% Northwestern University  \hfill Handout N#1 \newline
+{\bf \coursename \hfill Winter 2022}\newline
+{#2} \newline
+\mbox{}\hrulefill\mbox{}}\vspace*{1ex}\mbox{}\newline
+\bigskip
+\begin{center}{\Large\bf #1}\end{center}
+\bigskip
+}
+}
+
+
+
+
