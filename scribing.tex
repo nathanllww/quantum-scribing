@@ -1,8 +1,7 @@
 \documentclass[11pt]{article}
 
-\input{macros}
-\newtheorem{fact}[theorem]{Fact}
 
+\input{macros}
 \begin{document}
 %%% Fill in the lecture number, date and the scribe name here
 %% \lecturenote{<Lecture Number>}{<Date/Lecture title>}{<Scribe Name>}
@@ -10,45 +9,6 @@
 \lecturenote{06}{CHSH Game and Bell's Inequalities}{Nathan White, Dishen Wang, Han Cao}
 %\title{Sample: LP-based Decoding of Expander Codes}
 %\maketitle
-
-\begin{document}
-\section{Partial Measurements}
-This lecture begins with a recap and expansion of the concept of \textit{partial measurements}.
-Consider some state over two qubits; any such state can be written as
-\[\alpha_{00}\ket{00} + \alpha_{01}\ket{01} + \alpha_{10}\ket{10} + \alpha_{11}\ket{11}\]
-where $|\alpha_{00}|^2+|\alpha_{01}|^2+|\alpha_{10}|^2+|\alpha_{11}|^2=1$.
-Suppose Alice measures her (the first) qubit.
-Then,
-\begin{itemize}
-    \item Her qubit collapses to 0, which has probability $p_0 = |\alpha_{00}|^2+|\alpha_{01}|^2$.
-        In this case, the state becomes $(1/\sqrt{p_0})(\alpha_{00}\ket{00}+\alpha_{01}\ket{01}) = (1/\sqrt{p_0})\ket{0}\otimes (\alpha_{00}\ket{0}+\alpha_{01}\ket{1})$.
-        This is no longer entangled, since Alice's qubit has been measured, but the probabilities remain the same as in the complete measurement.
-        Bob's probability of seeing 0 after Alice sees 0 is $|\alpha_{00}|^2/p_0$, and since Alice see 0 with probability $p_0$, they both see 0 with probability $|\alpha_{00}|^2$, as expected.
-    \item Her qubit collapses to 1, which has probability $p_1 = 1-p_0$.
-        By symmetry, the analogous situation to collapsing to 0 occurs.
-\end{itemize}
-From this exercise, we see that Alice measuring and Bob later measuring is the same as measuring the entire state.
-Moreover, the exact same argument follows with Bob measuring first; thus order of measuring does not matter.
-
-For measuring in other bases, the exact same process applies; we can rewrite the state in the new basis (in which case our measuring deceive differs) or use the same measuring device but first applying a unitary transformation.
-The following fact can also help with measuring in a new basis.
-\begin{fact}
-    If $v_1,\ldots, v_n$ form an orthonormal basis, then for any $\phi$
-    \[\ket{\phi} = \sum_{i=1}^{n}\ket{v_i}\braket{v_i\mid \phi}\]
-\end{fact}
-
-To illustrate how partial measurements in other bases work, consider the following example.
-Suppose we have a state $(1/\sqrt{2})\ket{00}+(1/\sqrt{2})\ket{11}$, which is called the \textit{Bell State}.
-Alice wishes to measure in the $\ket{+},\ket{-}$ basis, where $\ket{+}=(1/\sqrt{2})(\ket{0}+\ket{1})$ and $\ket{-}=(1/\sqrt{2})(\ket{0}-\ket{1})$.
-In this new basis for Alice, the bell state becomes
-\begin{align*}
-    & \frac{1}{2}\ket{+0}+\frac{1}{2}\ket{-0}+\frac{1}{2}\ket{+1}-\frac{1}{2}\ket{-1} \\
-    =& \frac{1}{\sqrt{2}}\ket{+}\oplus\left( \frac{1}{\sqrt{2}}\ket{0}+\frac{1}{\sqrt{2}}\ket{1} \right) + \frac{1}{\sqrt{2}}\ket{-}\oplus\left( \frac{1}{\sqrt{2}}\ket{0}-\frac{1}{\sqrt{2}}\ket{1} \right) \\
-    =& \frac{1}{\sqrt{2}}\ket{+}\oplus\ket{+} + \frac{1}{\sqrt{2}}\ket{-}\oplus\ket{-} \\
-    =& \frac{1}{\sqrt{2}}\ket{++} + \frac{1}{\sqrt{2}}\ket{--}
-\end{align*}
-Thus, when Alice measures, she sees $+$ with probability $1/2$ and $-$ with probability $1/2$, and Bob will see whatever Alice measures.
-Note that this symmetry between 00 and ++ (and 11 and $--$) is not general, and is in fact a special property of the Bell state.
 
 \section{CHSH Game Introduction}
 CHSH game (named after the CHSH inequality discovered by John Clauser, Michael Horne, Abner Shimony, and Richard Holt) is an experiment involving two cooperating players and a referee. The analysis of the game shows that no classical strategy can have a higher 75\% success rate and that the quantum strategy can have a greater success rate than the classical strategy.
@@ -114,5 +74,6 @@ Any randomized strategy has a success rate of at most 75\%
     This means that the success rate is a weighted sum over the success rate of the deterministic strategies.
     But since deterministic strategies can have a success rate of at most 75\%, the randomized strategies success rate can also only have a max rate of 75\% as well.
 \end{proof}
+
 
 \end{document}
