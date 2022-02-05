@@ -1,29 +1,17 @@
-\documentclass{article}
+\documentclass[11pt]{article}
 
-\usepackage{amsmath, amssymb, amsthm, braket}
-\usepackage[margin=1in]{geometry}
-%\usepackage[parfill]{parskip}
-
-% \usepackage{titlesec}
-% \titleformat{\section}{
-% \vspace{-4pt}\large\bf
-% }{}{0em}{}[\vspace{-5pt}]
-
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}[theorem]{Lemma}
+\input{macros}
 \newtheorem{fact}[theorem]{Fact}
-\newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{definition}[theorem]{Definition}
-\newtheorem{example}[theorem]{Example}
-\newtheorem{claim}[theorem]{Claim}
-
-\title{Lecture 6 Scribing Notes}
-\author{Dishen Wang, Nathan White, and Han Cao \\ CS 496: Foundation of Quantum Computing}
-\date{\today}
 
 \begin{document}
-\maketitle
+%%% Fill in the lecture number, date and the scribe name here
+%% \lecturenote{<Lecture Number>}{<Date/Lecture title>}{<Scribe Name>}
+
+\lecturenote{06}{CHSH Game and Bell's Inequalities}{Nathan White, Dishen Wang, Han Cao}
+%\title{Sample: LP-based Decoding of Expander Codes}
+%\maketitle
+
+\begin{document}
 \section{Partial Measurements}
 This lecture begins with a recap and expansion of the concept of \textit{partial measurements}.
 Consider some state over two qubits; any such state can be written as
@@ -61,5 +49,70 @@ In this new basis for Alice, the bell state becomes
 \end{align*}
 Thus, when Alice measures, she sees $+$ with probability $1/2$ and $-$ with probability $1/2$, and Bob will see whatever Alice measures.
 Note that this symmetry between 00 and ++ (and 11 and $--$) is not general, and is in fact a special property of the Bell state.
+
+\section{CHSH Game Introduction}
+CHSH game (named after the CHSH inequality discovered by John Clauser, Michael Horne, Abner Shimony, and Richard Holt) is an experiment involving two cooperating players and a referee. The analysis of the game shows that no classical strategy can have a higher 75\% success rate and that the quantum strategy can have a greater success rate than the classical strategy.
+\subsection{Definition}
+The game is defined by the following rules:
+\begin{enumerate}
+    \item Two cooperating players, Alice and Bob and a referee, Charlie, are introduced to the game.
+    \item First, Charlie chooses bits $ a, b \in \{0,1\}$ uniformly at random.
+    \item Next, Charlie sends bit x to Alice and bit y to Bob.
+    \item Alice and Bob then respond to Charlie with each of their own bit, $a,b\in \{0,1\}$, respectively as well.
+    \item Once receiving a and b, Charlie tests that if a,b,x, and y satifies the following eqality:
+    \begin{align*}
+        a \oplus b = x \land y
+    \end{align*}
+
+    if true, then Alice and Bob win, if false, then Alice and Bob loses.
+
+\end{enumerate}
+
+\subsection{Classical Strategies}
+Initially, we will try several classical strategies to determine the success rate of each approach.
+
+\subsubsection*{Strategy \#1: Communicating}
+Alice and Bob communicate their answers, and agree on the message back
+
+\begin{itemize}
+    \item Since Alice and Bob are cooperative players, both parties will always produce an output that satisfies the success criteria, which means the success rate of this strategy will always be 100\%.
+    \item This approach is too easy, however, and so the communication between Alice and Bob will now be banned.
+\end{itemize}
+
+\subsubsection*{Strategy \#2: Deterministic}
+We now move to the ``no communication'' case, where Alice and Bob cannot communicate during the game, and first consider deterministic strategies.
+One simple strategy is to have Alice and Bob both send 0 every time.
+We can analyze the performance of this method as follows:
+
+\begin{itemize}
+    \item If $a$ and $b$ are both bit 0, then $x\land y$ must equal to 0 to satisfy the equality.
+    \item The probability of $x\land y = 0$ is 75\% since 3 out of the 4 uniformly random outcomes $([0,0],[0,1],[1,0])$ outputs result bit 0.
+\end{itemize}
+
+The following theorem shows that, despite being simple, this is the best possible deterministic classical strategy.
+\begin{theorem}
+Any deterministic strategy has a success rate of at most 75\%
+\end{theorem}
+\begin{proof}
+    Any deterministic strategy with success probability greater than 75\% must succeed every time, since there are only 4 possible options for $x,y$.
+    Suppose such a strategy exists; i.e. consider a strategy with 100\% success probability.
+    Let $a,b: \{0,1\}\to \{0,1\}$ be Alice and Bob's respective decisions given $x$ or $y$, respectively.
+    Then, with addition over $\mathbb{F}_2$, $a(0)+b(0)=1, a(0)+b(1)=0$ and $a(1)+b(0)=0$.
+    But these imply that $a(1)+b(1)=0$, contradicting that the strategy always succeeds.
+\end{proof}
+
+\subsubsection*{Strategy \#3: Randomized}
+Many times in computer science, randomness proves quite helpful; one might thus hope it does so here as well.
+Alas, the following theorem shows that any randomized strategies cannot do any better.
+
+\begin{theorem}
+Any randomized strategy has a success rate of at most 75\%
+\end{theorem}
+
+\begin{proof}
+    Randomized strategies can be thought as the same as performing a probability distribution over deterministic strategies.
+    This means that the success rate is a weighted sum over the success rate of the deterministic strategies.
+    But since deterministic strategies can have a success rate of at most 75\%, the randomized strategies success rate can also only have a max rate of 75\% as well.
+\end{proof}
 
 \end{document}
