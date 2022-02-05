@@ -1,7 +1,7 @@
 \documentclass[11pt]{article}
 
+\usepackage{braket}
 \input{macros}
-\newtheorem{fact}[theorem]{Fact}
 
 \begin{document}
 %%% Fill in the lecture number, date and the scribe name here
@@ -11,7 +11,6 @@
 %\title{Sample: LP-based Decoding of Expander Codes}
 %\maketitle
 
-\begin{document}
 \section{Partial Measurements}
 This lecture begins with a recap and expansion of the concept of \textit{partial measurements}.
 Consider some state over two qubits; any such state can be written as
@@ -50,7 +49,7 @@ In this new basis for Alice, the bell state becomes
 Thus, when Alice measures, she sees $+$ with probability $1/2$ and $-$ with probability $1/2$, and Bob will see whatever Alice measures.
 Note that this symmetry between 00 and ++ (and 11 and $--$) is not general, and is in fact a special property of the Bell state.
 
-\section{CHSH Game Introduction}
+\section{CHSH Game Introduction and Classical Strategies}
 CHSH game (named after the CHSH inequality discovered by John Clauser, Michael Horne, Abner Shimony, and Richard Holt) is an experiment involving two cooperating players and a referee. The analysis of the game shows that no classical strategy can have a higher 75\% success rate and that the quantum strategy can have a greater success rate than the classical strategy.
 \subsection{Definition}
 The game is defined by the following rules:
