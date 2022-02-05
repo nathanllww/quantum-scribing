@@ -6,13 +6,13 @@
 %%% Fill in the lecture number, date and the scribe name here
 %% \lecturenote{<Lecture Number>}{<Date/Lecture title>}{<Scribe Name>}
 
-\lecturenote{06}{CHSH Game and Bell's Inequalities}{Dishen Wang}
+\lecturenote{06}{CHSH Game and Bell's Inequalities}{Nathan White, Dishen Wang, Han Cao}
 %\title{Sample: LP-based Decoding of Expander Codes}
 %\maketitle
 
-\section *{CHSH Game Introduction} 
-CHSH game (named after the CHSH inequality discovered by John Clauser, Michael Horne, Abner Shimony, and Richard Holt) is an experiment involving two cooperating players and a referee. The analysis of the game shows that no classical strategy can have a higher 75\% success rate and that the quantum strategy can have a greater success rate than the classical strategy. 
-\section {Definition}
+\section{CHSH Game Introduction}
+CHSH game (named after the CHSH inequality discovered by John Clauser, Michael Horne, Abner Shimony, and Richard Holt) is an experiment involving two cooperating players and a referee. The analysis of the game shows that no classical strategy can have a higher 75\% success rate and that the quantum strategy can have a greater success rate than the classical strategy.
+\subsection{Definition}
 The game is defined by the following rules:
 \begin{enumerate}
     \item Two cooperating players, Alice and Bob and a referee, Charlie, are introduced to the game.
@@ -20,18 +20,18 @@ The game is defined by the following rules:
     \item Next, Charlie sends bit x to Alice and bit y to Bob.
     \item Alice and Bob then respond to Charlie with each of their own bit, $a,b\in \{0,1\}$, respectively as well.
     \item Once receiving a and b, Charlie tests that if a,b,x, and y satifies the following eqality:
-    \begin{equation}
+    \begin{align*}
         a \oplus b = x \land y
-    \end{equation}
-    
-    if true, then Alice and Bob wins, if false, then Alice and Bob loses.
-    
+    \end{align*}
+
+    if true, then Alice and Bob win, if false, then Alice and Bob loses.
+
 \end{enumerate}
 
-\section {Classical Strategies}
+\subsection{Classical Strategies}
 Initially, we will try several classical strategies to determine the success rate of each approach.
 
-\subsection{Strategy \#1}
+\subsubsection*{Strategy \#1: Communicating}
 Alice and Bob communicate their answers, and agree on the message back
 
 \begin{itemize}
@@ -39,26 +39,41 @@ Alice and Bob communicate their answers, and agree on the message back
     \item This approach is too easy, however, and so the communication between Alice and Bob will now be banned.
 \end{itemize}
 
-\subsection{Strategy \#2}
-Deterministic – Alice and Bob both send bit 0 every time 
+\subsubsection*{Strategy \#2: Deterministic}
+We now move to the ``no communication'' case, where Alice and Bob cannot communicate during the game, and first consider deterministic strategies.
+One simple strategy is to have Alice and Bob both send 0 every time.
+We can analyze the performance of this method as follows:
 
 \begin{itemize}
-    \item if $a$ and $b$ are both bit 0, then $x\land y$ must equal to 0 to satisfy the equality.
-    \item the probability of $x\land y = 0$ is 75\% since 3 out of the 4 uniformly random outcomes $([0,0],[0,1],[1,0])$ outputs result bit 0.
+    \item If $a$ and $b$ are both bit 0, then $x\land y$ must equal to 0 to satisfy the equality.
+    \item The probability of $x\land y = 0$ is 75\% since 3 out of the 4 uniformly random outcomes $([0,0],[0,1],[1,0])$ outputs result bit 0.
 \end{itemize}
 
+The following theorem shows that, despite being simple, this is the best possible deterministic classical strategy.
 \begin{theorem}
 Any deterministic strategy has a success rate of at most 75\%
 \end{theorem}
-For each deterministic strategy, there are always 4 total outcomes of $x$ and $y$ pair that matches the output of the strategy. Out of the four outcomes, there is always at least one pair of $x$ and $y$ which result of $x \land y$ diffs from the rest, this means that there can never be 100\% probability of winning or losing the game regardless of the deterministic output from Alice and Bob and that the success rate for deterministic strategy is at most 75\%. 
+\begin{proof}
+    Any deterministic strategy with success probability greater than 75\% must succeed every time, since there are only 4 possible options for $x,y$.
+    Suppose such a strategy exists; i.e. consider a strategy with 100\% success probability.
+    Let $a,b: \{0,1\}\to \{0,1\}$ be Alice and Bob's respective decisions given $x$ or $y$, respectively.
+    Then, with addition over $\mathbb{F}_2$, $a(0)+b(0)=1, a(0)+b(1)=0$ and $a(1)+b(0)=0$.
+    But these imply that $a(1)+b(1)=0$, contradicting that the strategy always succeeds.
+\end{proof}
 
-\subsection{Strategy \#3}
-Randomize - Alice and Bob randomly chooses $a$ and $b$ with uniform random probability.
+\subsubsection*{Strategy \#3: Randomized}
+Many times in computer science, randomness proves quite helpful; one might thus hope it does so here as well.
+Alas, the following theorem shows that any randomized strategies cannot do any better.
 
 \begin{theorem}
 Any randomized strategy has a success rate of at most 75\%
 \end{theorem}
 
-Randomized strategies can be thought as the same as performing a probability distribution over deterministic strategies. This means that the success rate is the max weighted sum over the success rate of the deterministic strategies. But since deterministic strategies can have a success rate of at most 75\%, the randomized strategies success rate can also only have a max rate of 75\% as well. 
+\begin{proof}
+    Randomized strategies can be thought as the same as performing a probability distribution over deterministic strategies.
+    This means that the success rate is a weighted sum over the success rate of the deterministic strategies.
+    But since deterministic strategies can have a success rate of at most 75\%, the randomized strategies success rate can also only have a max rate of 75\% as well.
+\end{proof}
+
 
 \end{document}
