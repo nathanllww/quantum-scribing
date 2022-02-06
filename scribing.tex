@@ -1,7 +1,6 @@
 \documentclass[11pt]{article}
 
 \usepackage{braket}
-\usepackage{tabularx}
 \input{macros}
 
 \begin{document}
@@ -118,71 +117,60 @@ Any randomized strategy has a success rate of at most 75\%
 
 \section{CHSH game Quantum Strategy}
 
-\subsection{Alice and Bob EPR pair Bell state}
+\subsection{Setup: Measuring in an EPR pair}
+For the quantum strategy, Alice and Bob exchange an EPR \textit{before} the game begins, and then measure it in a basis depending on the bits $x,y$ they receive.
 
-Consider the relation
+Recall that a Bell state or EPR pair $\Phi$ is defined as
 \[ \frac{1}{2}(\ket{00}+\ket{11}) = \Phi = \frac{1}{2}(\ket{++}+\ket{--}) \]
-Alice has one qubit and Bob has the other qubit.
-\\
-\\
-There are two cases for Alice
+Suppose Alice has one qubit and Bob has the other qubit.
+Alice then receives the bit $x$ and does one of two things:
 \begin{itemize}
-	\item \textbf{Case 1}, $x = 0$, Alice measures in standard basis;
-	\item \textbf{Case 2}, $x = 1$, Alice measures in $\ket{+}$, $\ket{-}$. If she sees $\ket{+}$ she will send back 0, otherwise she will send back 1.
+    \item If $x = 0$, Alice measures in standard basis;
+    \item If $x = 1$, Alice measures in $\ket{+}$, $\ket{-}$. If she sees $\ket{+}$ she will send back 0, otherwise she will send back 1.
 \end{itemize}
-There are two cases for Bob
+Similarly, Bob receives the bit $y$ and
 \begin{itemize}
-	\item \textbf{Case 1}, $y = 0$, Bob needs to choose a basis for measure
-	\[ a_0 = \cos{\bigg(\frac{\pi}{8}\bigg)}\ket{0} + \sin{\bigg(\frac{\pi}{8}\bigg)}\ket{1} \]
-	\[ a_1 = -\sin{\bigg(\frac{\pi}{8}\bigg)}\ket{0} + \cos{\bigg(\frac{\pi}{8}\bigg)}\ket{1}; \]
-	\item \textbf{Case 2}, $y = 1$, Bob is going to measure in another basis
-	\[ b_0 = \cos{\bigg(\frac{\pi}{8}\bigg)}\ket{0} - \sin{\bigg(\frac{\pi}{8}\bigg)}\ket{1} \]
-	\[ b_1 = \sin{\bigg(\frac{\pi}{8}\bigg)}\ket{0} + \cos{\bigg(\frac{\pi}{8}\bigg)}\ket{1}. \]
+	\item If $y = 0$, Bob measures in the basis
+	\[ a_0 = \cos{\left(\frac{\pi}{8}\right)}\ket{0} + \sin{\left(\frac{\pi}{8}\right)}\ket{1} \]
+	\[ a_1 = -\sin{\left(\frac{\pi}{8}\right)}\ket{0} + \cos{\left(\frac{\pi}{8}\right)}\ket{1} \]
+	\item If $y = 1$, Bob measures in a different basis
+	\[ b_0 = \cos{\left(\frac{\pi}{8}\right)}\ket{0} - \sin{\left(\frac{\pi}{8}\right)}\ket{1} \]
+	\[ b_1 = \sin{\left(\frac{\pi}{8}\right)}\ket{0} + \cos{\left(\frac{\pi}{8}\right)}\ket{1} \]
 \end{itemize}
 
 If Bob sees $a_0$ or $b_0$ he will return 0, otherwise he will return 1.
 
-\subsection{Case Computation ($\mathbf{\textit{x} = 0}$, $\mathbf{\textit{y} = 0}$)}
-We will succeed if $a = b = 0$ or $a = b = 1$, i.e.
-\[ \ket{0}\otimes\ket{a_0} \text{, }\ket{0}\otimes\ket{a_1}  \text{, } \ket{1}\otimes\ket{a_0} \text{, }\ket{1}\otimes\ket{a_1}. \]
-We want to take the absolute value amplitude square of $\ket{0}\otimes\ket{a_0}$ and $\ket{1}\otimes\ket{a_1}$, since they correspond to success.
+\subsection{Analysis: Case where $x=0,y=0$}
+If $x=y=0$, we will succeed if $a = b = 0$ or $a = b = 1$.
+Equivalently, if Alice measures $0$, we want Bob to measure $a_0$, and if Alice measures measures $1$, we want Bob to measure $a_1$.
+This first case corresponds to the value
+\[ |\bra{\Phi}(\ket{0}\otimes\ket{a_0})|^2 = \left|\bra{\Phi}\left(\cos{\left(\frac{\pi}{8}\right)}\ket{00} + \sin{\left(\frac{\pi}{8}\right)}\ket{01}\right) \right|^2 = \left| \frac{\cos{\left(\frac{\pi}{8}\right)}}{\sqrt{2}} \right|^2 =  \frac{\cos^2{\left(\frac{\pi}{8}\right)}}{2}.  \]
+and similarly for the $1,a_1$ case.
+Multiplying by 2 for the two wining case, we find a total success probability of
+\[\cos^2\left( \frac{\pi}{8} \right)\approx 0.85\]
+roughly 10\% higher than the best classical strategy!
 
-\[ |\bra{\Phi}(\ket{0}\otimes\ket{a_0})|^2 = \Bigg|\bra{\Phi}\Bigg(\cos{\bigg(\frac{\pi}{8}\bigg)}\ket{00} + \sin{\bigg(\frac{\pi}{8}\bigg)}\ket{01}\Bigg) \Bigg|^2 = \Bigg| \frac{\cos{\big(\frac{\pi}{8}\big)}}{\sqrt{2}} \Bigg|^2 =  \frac{\cos^2{\big(\frac{\pi}{8}\big)}}{2}.  \]
-\\
-\textbf{Conclusion:} If x and y are both 0, then we have the probability
-\[ P = \cos^2{\bigg(\frac{\pi}{8}\bigg)} \approx 0.85. \].
-This means the quantum strategy achieved a probability of 85\% which is better than 75\%.
+\subsection{Intuition}
+If we look at the standard basis qualitatively, $\cos{(\pi/8)}$ is close to 1 because $\pi/8$ is close to 0; $\pi/8$ corresponds to roughly a 22.5 degree angle.
+If Alice and Bob's bases are close to each other, they'll likely output the same thing, whereas if they're far they are more likely to return different values.
+The following table thus gives intuition for why this works well: if the cases were we want to get $x\wedge y = 0$, the bases are ``close'', and if $x=y=1$, the bases are ``far.''
 
-\subsection{Explanation}
-If we look at the standard basis qualitatively,  $\cos{\big(\frac{\pi}{8}\big)}$ is close to 1 because $\frac{\pi}{8}$ is close to 0. In general, if Alice and Bob measure in this same basis they're going to see the same thing. If they are close to the same basis, then they're going to with high probability to output the same thing.
+% \begin{table}[h!]
+% \centering
+\begin{center}
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        $x$ & $y$ & $x \wedge y$ & Intuition \\
+        \hline
+         0  & 0  & 0 & Bases are close \\
+        \hline
+         0  & 1  & 0 & Bases are close \\
+        \hline
+         1  & 0  & 0 & Bases are close \\
+        \hline
+         1 & 1  & 1 & Bases are far \\
+        \hline
+    \end{tabular}
+\end{center}
 
-\begin{table}[h!]
-\centering
-\begin{tabularx}{0.75\textwidth} { 
-  | >{\centering\arraybackslash}X 
-  | >{\centering\arraybackslash}X 
-  | >{\centering\arraybackslash}X
-  | >{\centering\arraybackslash}X | }
- \hline
- $x$ & $y$ & $x$ {\tiny$\bigwedge$} $y$ &  \\
- \hline
- 0  & 0  & 0 & Bases are close \\
-\hline
- 0  & 1  & 0 & Bases are close \\
-\hline 
-1  & 0  & 0 & Bases are close \\
-\hline 
-1 & 1  & 1 & Bases are far \\
-\hline
-
-\end{tabularx}
-\end{table}
-
-\subsection{Case illustration ($\mathbf{\textit{x} = 1}$, $\mathbf{\textit{y} = 1}$)}
-
-\begin{figure}[!h]
-\centering
-\includegraphics[width=0.5\linewidth]{./fig.jpg}
-\caption{\label{f1} Case illustration.}
-\end{figure}
 \end{document}
