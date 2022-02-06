@@ -1,6 +1,7 @@
 \documentclass[11pt]{article}
 
 \usepackage{braket}
+\usepackage{tabularx}
 \input{macros}
 
 \begin{document}
@@ -18,6 +19,7 @@ Consider some state over two qubits; any such state can be written as
 where $|\alpha_{00}|^2+|\alpha_{01}|^2+|\alpha_{10}|^2+|\alpha_{11}|^2=1$.
 Suppose Alice measures her (the first) qubit.
 Then,
+
 \begin{itemize}
     \item Her qubit collapses to 0, which has probability $p_0 = |\alpha_{00}|^2+|\alpha_{01}|^2$.
         In this case, the state becomes $(1/\sqrt{p_0})(\alpha_{00}\ket{00}+\alpha_{01}\ket{01}) = (1/\sqrt{p_0})\ket{0}\otimes (\alpha_{00}\ket{0}+\alpha_{01}\ket{1})$.
@@ -114,4 +116,73 @@ Any randomized strategy has a success rate of at most 75\%
     But since deterministic strategies can have a success rate of at most 75\%, the randomized strategies success rate can also only have a max rate of 75\% as well.
 \end{proof}
 
+\section{CHSH game Quantum Strategy}
+
+\subsection{Alice and Bob EPR pair Bell state}
+
+Consider the relation
+\[ \frac{1}{2}(\ket{00}+\ket{11}) = \Phi = \frac{1}{2}(\ket{++}+\ket{--}) \]
+Alice has one qubit and Bob has the other qubit.
+\\
+\\
+There are two cases for Alice
+\begin{itemize}
+	\item \textbf{Case 1}, $x = 0$, Alice measures in standard basis;
+	\item \textbf{Case 2}, $x = 1$, Alice measures in $\ket{+}$, $\ket{-}$. If she sees $\ket{+}$ she will send back 0, otherwise she will send back 1.
+\end{itemize}
+There are two cases for Bob
+\begin{itemize}
+	\item \textbf{Case 1}, $y = 0$, Bob needs to choose a basis for measure
+	\[ a_0 = \cos{\bigg(\frac{\pi}{8}\bigg)}\ket{0} + \sin{\bigg(\frac{\pi}{8}\bigg)}\ket{1} \]
+	\[ a_1 = -\sin{\bigg(\frac{\pi}{8}\bigg)}\ket{0} + \cos{\bigg(\frac{\pi}{8}\bigg)}\ket{1}; \]
+	\item \textbf{Case 2}, $y = 1$, Bob is going to measure in another basis
+	\[ b_0 = \cos{\bigg(\frac{\pi}{8}\bigg)}\ket{0} - \sin{\bigg(\frac{\pi}{8}\bigg)}\ket{1} \]
+	\[ b_1 = \sin{\bigg(\frac{\pi}{8}\bigg)}\ket{0} + \cos{\bigg(\frac{\pi}{8}\bigg)}\ket{1}. \]
+\end{itemize}
+
+If Bob sees $a_0$ or $b_0$ he will return 0, otherwise he will return 1.
+
+\subsection{Case Computation ($\mathbf{\textit{x} = 0}$, $\mathbf{\textit{y} = 0}$)}
+We will succeed if $a = b = 0$ or $a = b = 1$, i.e.
+\[ \ket{0}\otimes\ket{a_0} \text{, }\ket{0}\otimes\ket{a_1}  \text{, } \ket{1}\otimes\ket{a_0} \text{, }\ket{1}\otimes\ket{a_1}. \]
+We want to take the absolute value amplitude square of $\ket{0}\otimes\ket{a_0}$ and $\ket{1}\otimes\ket{a_1}$, since they correspond to success.
+
+\[ |\bra{\Phi}(\ket{0}\otimes\ket{a_0})|^2 = \Bigg|\bra{\Phi}\Bigg(\cos{\bigg(\frac{\pi}{8}\bigg)}\ket{00} + \sin{\bigg(\frac{\pi}{8}\bigg)}\ket{01}\Bigg) \Bigg|^2 = \Bigg| \frac{\cos{\big(\frac{\pi}{8}\big)}}{\sqrt{2}} \Bigg|^2 =  \frac{\cos^2{\big(\frac{\pi}{8}\big)}}{2}.  \]
+\\
+\textbf{Conclusion:} If x and y are both 0, then we have the probability
+\[ P = \cos^2{\bigg(\frac{\pi}{8}\bigg)} \approx 0.85. \].
+This means the quantum strategy achieved a probability of 85\% which is better than 75\%.
+
+\subsection{Explanation}
+If we look at the standard basis qualitatively,  $\cos{\big(\frac{\pi}{8}\big)}$ is close to 1 because $\frac{\pi}{8}$ is close to 0. In general, if Alice and Bob measure in this same basis they're going to see the same thing. If they are close to the same basis, then they're going to with high probability to output the same thing.
+
+\begin{table}[h!]
+\centering
+\begin{tabularx}{0.75\textwidth} { 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X
+  | >{\centering\arraybackslash}X | }
+ \hline
+ $x$ & $y$ & $x$ {\tiny$\bigwedge$} $y$ &  \\
+ \hline
+ 0  & 0  & 0 & Bases are close \\
+\hline
+ 0  & 1  & 0 & Bases are close \\
+\hline 
+1  & 0  & 0 & Bases are close \\
+\hline 
+1 & 1  & 1 & Bases are far \\
+\hline
+
+\end{tabularx}
+\end{table}
+
+\subsection{Case illustration ($\mathbf{\textit{x} = 1}$, $\mathbf{\textit{y} = 1}$)}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.5\linewidth]{./fig.jpg}
+\caption{\label{f1} Case illustration.}
+\end{figure}
 \end{document}
