@@ -57,14 +57,11 @@ The game is defined by the following rules:
 \begin{enumerate}
     \item Two cooperating players, Alice and Bob and a referee, Charlie, are introduced to the game.
     \item First, Charlie chooses bits $ a, b \in \{0,1\}$ uniformly at random.
-    \item Next, Charlie sends bit x to Alice and bit y to Bob.
+    \item Next, Charlie sends bit $x$ to Alice and bit $y$ to Bob.
     \item Alice and Bob then respond to Charlie with each of their own bit, $a,b\in \{0,1\}$, respectively as well.
-    \item Once receiving a and b, Charlie tests that if a,b,x, and y satifies the following eqality:
-    \begin{align*}
-        a \oplus b = x \land y
-    \end{align*}
-
-    if true, then Alice and Bob win, if false, then Alice and Bob loses.
+    \item Once receiving a and b, Charlie tests that if $a,b,x$ and $y$ satisfies the following equality:
+    \[a \oplus b = x \land y\]
+    if true, then Alice and Bob win, if false, then Alice and Bob lose.
 
 \end{enumerate}
 
@@ -116,6 +113,8 @@ Any randomized strategy has a success rate of at most 75\%
 \end{proof}
 
 \section{CHSH game Quantum Strategy}
+We now move on to \textit{quantum strategies}, i.e. those where Alice and Bob can exchange qubits beforehand.
+In this case, we \textit{can} do better than 75\%, achieving a strategy with 85\% success rate.
 
 \subsection{Setup: Measuring in an EPR pair}
 For the quantum strategy, Alice and Bob exchange an EPR \textit{before} the game begins, and then measure it in a basis depending on the bits $x,y$ they receive.
@@ -146,7 +145,7 @@ Equivalently, if Alice measures $0$, we want Bob to measure $a_0$, and if Alice 
 This first case corresponds to the value
 \[ |\bra{\Phi}(\ket{0}\otimes\ket{a_0})|^2 = \left|\bra{\Phi}\left(\cos{\left(\frac{\pi}{8}\right)}\ket{00} + \sin{\left(\frac{\pi}{8}\right)}\ket{01}\right) \right|^2 = \left| \frac{\cos{\left(\frac{\pi}{8}\right)}}{\sqrt{2}} \right|^2 =  \frac{\cos^2{\left(\frac{\pi}{8}\right)}}{2}.  \]
 and similarly for the $1,a_1$ case.
-Multiplying by 2 for the two wining case, we find a total success probability of
+Multiplying by 2 for the two wining cases, we find a total success probability of
 \[\cos^2\left( \frac{\pi}{8} \right)\approx 0.85\]
 roughly 10\% higher than the best classical strategy!
 
@@ -172,5 +171,7 @@ The following table thus gives intuition for why this works well: if the cases w
         \hline
     \end{tabular}
 \end{center}
+
+Thus, in all cases, we have a large probability of success.
 
 \end{document}
