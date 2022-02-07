@@ -18,6 +18,7 @@ Consider some state over two qubits; any such state can be written as
 where $|\alpha_{00}|^2+|\alpha_{01}|^2+|\alpha_{10}|^2+|\alpha_{11}|^2=1$.
 Suppose Alice measures her (the first) qubit.
 Then,
+
 \begin{itemize}
     \item Her qubit collapses to 0, which has probability $p_0 = |\alpha_{00}|^2+|\alpha_{01}|^2$.
         In this case, the state becomes $(1/\sqrt{p_0})(\alpha_{00}\ket{00}+\alpha_{01}\ket{01}) = (1/\sqrt{p_0})\ket{0}\otimes (\alpha_{00}\ket{0}+\alpha_{01}\ket{1})$.
@@ -113,5 +114,63 @@ Any randomized strategy has a success rate of at most 75\%
     This means that the success rate is a weighted sum over the success rate of the deterministic strategies.
     But since deterministic strategies can have a success rate of at most 75\%, the randomized strategies success rate can also only have a max rate of 75\% as well.
 \end{proof}
+
+\section{CHSH game Quantum Strategy}
+
+\subsection{Setup: Measuring in an EPR pair}
+For the quantum strategy, Alice and Bob exchange an EPR \textit{before} the game begins, and then measure it in a basis depending on the bits $x,y$ they receive.
+
+Recall that a Bell state or EPR pair $\Phi$ is defined as
+\[ \frac{1}{2}(\ket{00}+\ket{11}) = \Phi = \frac{1}{2}(\ket{++}+\ket{--}) \]
+Suppose Alice has one qubit and Bob has the other qubit.
+Alice then receives the bit $x$ and does one of two things:
+\begin{itemize}
+    \item If $x = 0$, Alice measures in standard basis;
+    \item If $x = 1$, Alice measures in $\ket{+}$, $\ket{-}$. If she sees $\ket{+}$ she will send back 0, otherwise she will send back 1.
+\end{itemize}
+Similarly, Bob receives the bit $y$ and
+\begin{itemize}
+	\item If $y = 0$, Bob measures in the basis
+	\[ a_0 = \cos{\left(\frac{\pi}{8}\right)}\ket{0} + \sin{\left(\frac{\pi}{8}\right)}\ket{1} \]
+	\[ a_1 = -\sin{\left(\frac{\pi}{8}\right)}\ket{0} + \cos{\left(\frac{\pi}{8}\right)}\ket{1} \]
+	\item If $y = 1$, Bob measures in a different basis
+	\[ b_0 = \cos{\left(\frac{\pi}{8}\right)}\ket{0} - \sin{\left(\frac{\pi}{8}\right)}\ket{1} \]
+	\[ b_1 = \sin{\left(\frac{\pi}{8}\right)}\ket{0} + \cos{\left(\frac{\pi}{8}\right)}\ket{1} \]
+\end{itemize}
+
+If Bob sees $a_0$ or $b_0$ he will return 0, otherwise he will return 1.
+
+\subsection{Analysis: Case where $x=0,y=0$}
+If $x=y=0$, we will succeed if $a = b = 0$ or $a = b = 1$.
+Equivalently, if Alice measures $0$, we want Bob to measure $a_0$, and if Alice measures measures $1$, we want Bob to measure $a_1$.
+This first case corresponds to the value
+\[ |\bra{\Phi}(\ket{0}\otimes\ket{a_0})|^2 = \left|\bra{\Phi}\left(\cos{\left(\frac{\pi}{8}\right)}\ket{00} + \sin{\left(\frac{\pi}{8}\right)}\ket{01}\right) \right|^2 = \left| \frac{\cos{\left(\frac{\pi}{8}\right)}}{\sqrt{2}} \right|^2 =  \frac{\cos^2{\left(\frac{\pi}{8}\right)}}{2}.  \]
+and similarly for the $1,a_1$ case.
+Multiplying by 2 for the two wining case, we find a total success probability of
+\[\cos^2\left( \frac{\pi}{8} \right)\approx 0.85\]
+roughly 10\% higher than the best classical strategy!
+
+\subsection{Intuition}
+If we look at the standard basis qualitatively, $\cos{(\pi/8)}$ is close to 1 because $\pi/8$ is close to 0; $\pi/8$ corresponds to roughly a 22.5 degree angle.
+If Alice and Bob's bases are close to each other, they'll likely output the same thing, whereas if they're far they are more likely to return different values.
+The following table thus gives intuition for why this works well: if the cases were we want to get $x\wedge y = 0$, the bases are ``close'', and if $x=y=1$, the bases are ``far.''
+
+% \begin{table}[h!]
+% \centering
+\begin{center}
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        $x$ & $y$ & $x \wedge y$ & Intuition \\
+        \hline
+         0  & 0  & 0 & Bases are close \\
+        \hline
+         0  & 1  & 0 & Bases are close \\
+        \hline
+         1  & 0  & 0 & Bases are close \\
+        \hline
+         1 & 1  & 1 & Bases are far \\
+        \hline
+    \end{tabular}
+\end{center}
 
 \end{document}
